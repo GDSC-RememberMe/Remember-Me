@@ -37,9 +37,9 @@ class RememberMeBox extends StatelessWidget {
       borderRadius: borderRadius,
     );
     return SizedBox(
-      width: width,
-      height: height,
       child: Container(
+        width: width,
+        height: height,
         padding: padding,
         margin: margin,
         decoration: shape != null ? decoration.copyWith(shape: shape) : decoration,
