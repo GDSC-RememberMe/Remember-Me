@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 
-class DefaultLayout extends StatelessWidget {
+class RememberMeLayout extends StatelessWidget {
   final Color? backgroundColor;
   final Widget body;
   final PreferredSizeWidget? appBar;
@@ -11,7 +11,7 @@ class DefaultLayout extends StatelessWidget {
   final bool? resizeToAvoidBottomInset;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
 
-  const DefaultLayout({
+  const RememberMeLayout({
     Key? key,
     required this.body,
     this.backgroundColor,

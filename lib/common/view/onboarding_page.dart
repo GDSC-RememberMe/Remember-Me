@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:remember_me_mobile/common/component/remember_me_box.dart';
-import 'package:remember_me_mobile/common/component/remember_me_text.dart';
 import 'package:remember_me_mobile/common/const/fonts.dart';
-import 'package:remember_me_mobile/common/layout/default_layout.dart';
+import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -26,7 +25,7 @@ class _OnBoardingWithLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
+    return RememberMeLayout(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -53,7 +52,7 @@ class _OnBoardingWithTypo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
+    return RememberMeLayout(
       body: SafeArea(
         child: RememberMeBox(
           padding: const EdgeInsets.symmetric(vertical: 104, horizontal: 28).r,
