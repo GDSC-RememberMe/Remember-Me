@@ -13,6 +13,7 @@ class JoinBody {
   final String birth;
   final String gender;
   final String address;
+  final String fcmToken;
 
   JoinBody({
     required this.username,
@@ -23,6 +24,7 @@ class JoinBody {
     required this.birth,
     required this.gender,
     required this.address,
+    required this.fcmToken,
   });
 
   factory JoinBody.fromJson(

@@ -8,6 +8,9 @@ import 'package:remember_me_mobile/common/component/remember_me_text.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
+import 'package:remember_me_mobile/common/view/caregiver_main_tab_page.dart';
+import 'package:remember_me_mobile/common/view/patient_main_tab_page.dart';
+import 'package:remember_me_mobile/user/model/user_model.dart';
 import 'package:remember_me_mobile/user/provider/current_user_provider.dart';
 import 'package:remember_me_mobile/user/view/sign_up_page.dart';
 
@@ -51,11 +54,20 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 SizedBox(height: 10.0.h),
                 ContainedButton(
                   "로그인",
-                  onTap: () {
-                    ref.read(currentUserNotifierProvider.notifier).login(
+                  onTap: () async {
+                    final data = await ref
+                        .read(currentUserNotifierProvider.notifier)
+                        .login(
                           username: idCtrl.text,
                           password: passwordCtrl.text,
                         );
+
+                    if (data is UserModel) {
+                      context.pushNamed(
+                          (data as UserModel).role == UserRole.caregiver
+                              ? CaregiverMainTabPage.routeName
+                              : PatientMainTabPage.routeName);
+                    }
                   },
                   buttonColor: Theme.of(context).colorScheme.primary,
                   textColor: WHITE,

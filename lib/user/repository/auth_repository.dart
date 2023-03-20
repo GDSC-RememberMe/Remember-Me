@@ -41,12 +41,10 @@ class AuthRepository {
   }) async {
     final resp = await dio.post(
       "$baseUrl/login",
-      data: {
-        LoginBody(
-          username: username,
-          password: password,
-        ).toJson(),
-      },
+      data: LoginBody(
+        username: username,
+        password: password,
+      ).toJson(),
     );
 
     return TokenResponse.fromJson(resp.data);

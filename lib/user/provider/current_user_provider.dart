@@ -11,8 +11,10 @@ import 'package:remember_me_mobile/user/model/body/validation_body.dart';
 import 'package:remember_me_mobile/user/model/user_model.dart';
 import 'package:remember_me_mobile/user/repository/auth_repository.dart';
 import 'package:remember_me_mobile/user/repository/user_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-final currentUserNotifierProvider = StateNotifierProvider<CurrentUserStateNotifier, UserModelBase?>((ref) {
+final currentUserNotifierProvider =
+    StateNotifierProvider<CurrentUserStateNotifier, UserModelBase?>((ref) {
   final authorizationRepository = ref.watch(authRepositoryProvider);
   final currentUserNotifierRepository = ref.watch(userRepositoryProvider);
   final storage = ref.watch(secureStorageProvider);
@@ -60,7 +62,8 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
     try {
       state = UserModelLoading();
 
-      final resp = await authRepository.login(username: username, password: password);
+      final resp =
+          await authRepository.login(username: username, password: password);
 
       await storage.write(key: REFRESH_TOKEN_KEY, value: resp.refreshToken);
       await storage.write(key: ACCESS_TOKEN_KEY, value: resp.accessToken);
@@ -91,31 +94,34 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
     try {
       state = UserModelLoading();
 
-      final JoinBody joinBody = JoinBody(
-        username: username,
-        password: password,
-        phone: phone,
-        nickname: nickname,
-        role: role,
-        birth: DateFormat('yyyy-MM-dd').format(birth),
-        gender: gender == "남성" ? "MALE" : "FEMALE",
-        address: address,
-      );
+      FirebaseMessaging.instance.getToken().then((token) async {
+        final JoinBody joinBody = JoinBody(
+          username: username,
+          password: password,
+          phone: phone,
+          nickname: nickname,
+          role: role,
+          birth: DateFormat('yyyy-MM-dd').format(birth),
+          gender: gender == "남성" ? "MALE" : "FEMALE",
+          address: address,
+          fcmToken: "$token",
+        );
 
-      final resp = await authRepository.join(
-        body: joinBody,
-      );
+        final resp = await authRepository.join(
+          body: joinBody,
+        );
 
-      if (resp != null) {
-        await storage.write(key: REFRESH_TOKEN_KEY, value: resp.refreshToken);
-        await storage.write(key: ACCESS_TOKEN_KEY, value: resp.accessToken);
-        await repository.updateImage(image: profileImg);
-        final userInfoResp = await repository.getUserInfo();
+        if (resp != null) {
+          await storage.write(key: REFRESH_TOKEN_KEY, value: resp.refreshToken);
+          await storage.write(key: ACCESS_TOKEN_KEY, value: resp.accessToken);
+          await repository.updateImage(image: profileImg);
+          final userInfoResp = await repository.getUserInfo();
 
-        state = userInfoResp;
+          state = userInfoResp;
 
-        return userInfoResp;
-      }
+          return userInfoResp;
+        }
+      });
     } catch (e, stackTrace) {
       print(e.toString());
       state = UserModelError(message: "회원 가입에 실패했습니다.");

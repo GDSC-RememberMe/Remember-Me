@@ -15,6 +15,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       birth: DataUtils.stringToDateTime(json['birth'] as String?),
       address: json['address'] as String?,
       pushCnt: json['pushCnt'] as int,
+      gender: json['gender'] as String,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -26,6 +27,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'birth': instance.birth.toIso8601String(),
       'address': instance.address,
       'pushCnt': instance.pushCnt,
+      'gender': instance.gender,
     };
 
 const _$UserRoleEnumMap = {

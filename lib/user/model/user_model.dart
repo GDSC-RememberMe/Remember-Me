@@ -33,6 +33,7 @@ class UserModel extends UserModelBase {
   final DateTime birth;
   final String? address;
   final int pushCnt;
+  final String gender;
 
   UserModel({
     required this.phone,
@@ -43,6 +44,7 @@ class UserModel extends UserModelBase {
     required this.birth,
     required this.address,
     required this.pushCnt,
+    required this.gender,
   });
 
   factory UserModel.fromJson(

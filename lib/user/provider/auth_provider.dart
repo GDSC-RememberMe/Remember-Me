@@ -75,9 +75,9 @@ class AuthProvider extends ChangeNotifier {
         )
       ];
 
-  // TODO Routes
-
-  // TODO Logout
+  void logout() {
+    ref.read(currentUserNotifierProvider.notifier).logout();
+  }
 
   String? redirectLogic(BuildContext context, GoRouterState state) {
     // TODO redirectLogic
