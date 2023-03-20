@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
-import 'package:remember_me_mobile/common/const/fonts.dart';
+
 import 'package:selectable_autolink_text/selectable_autolink_text.dart';
 
 class RememberMeText extends StatelessWidget {
@@ -22,7 +23,7 @@ class RememberMeText extends StatelessWidget {
     this.weight = FontWeight.w500,
     this.color = GREY900,
     this.letterSpacing = -0.8,
-    this.fontFamily = NOTO_SANS,
+    this.fontFamily,
     this.overflow = TextOverflow.visible,
     this.align = TextAlign.start,
     this.selectable = false,
