@@ -4,8 +4,7 @@ import 'package:remember_me_mobile/common/dio/dio.dart';
 import 'package:remember_me_mobile/user/model/body/join_body.dart';
 import 'package:remember_me_mobile/user/model/body/login_body.dart';
 import 'package:remember_me_mobile/user/model/body/validation_body.dart';
-import 'package:remember_me_mobile/user/model/response/login_response.dart';
-import 'package:remember_me_mobile/user/model/user_model.dart';
+import 'package:remember_me_mobile/user/model/response/token_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_repository.g.dart';
@@ -25,24 +24,18 @@ class AuthRepository {
 
   AuthRepository({required this.baseUrl, required this.dio});
 
-  Future<bool> join({
+  Future<TokenResponse?> join({
     required JoinBody body,
   }) async {
-    try {
-      final resp = await dio.post(
-        "$baseUrl/join",
-        data: {
-          body.toJson(),
-        },
-      );
+    final resp = await dio.post(
+      "$baseUrl/join",
+      data: body.toJson(),
+    );
 
-      return resp.data != null;
-    } catch (e) {
-      return false;
-    }
+    return TokenResponse.fromJson(resp.data);
   }
 
-  Future<LoginResponse> login({
+  Future<TokenResponse> login({
     required String username,
     required String password,
   }) async {
@@ -56,30 +49,16 @@ class AuthRepository {
       },
     );
 
-    return LoginResponse.fromJson(resp.data);
+    return TokenResponse.fromJson(resp.data);
   }
 
-  Future<bool> usernameValidation({
+  Future<bool> joinValidation({
     required ValidationBody body,
+    required String path,
   }) async {
     try {
       final resp = await dio.post(
-        "$VALIDATION_BASE_URL/username",
-        data: body.toJson(),
-      );
-
-      return resp.statusCode == 200;
-    } on DioError catch (_) {
-      return false;
-    }
-  }
-
-  Future<bool> phoneValidation({
-    required ValidationBody body,
-  }) async {
-    try {
-      final resp = await dio.post(
-        "$VALIDATION_BASE_URL/phone",
+        "$VALIDATION_BASE_URL/$path",
         data: body.toJson(),
       );
 

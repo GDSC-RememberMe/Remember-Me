@@ -12,17 +12,23 @@ JoinBody _$JoinBodyFromJson(Map<String, dynamic> json) => JoinBody(
       phone: json['phone'] as String,
       nickname: json['nickname'] as String,
       role: $enumDecode(_$UserRoleEnumMap, json['role']),
-      birth: DateTime.parse(json['birth'] as String),
+      birth: json['birth'] as String,
+      gender: json['gender'] as String,
+      address: json['address'] as String,
     );
 
-Map<String, dynamic> _$JoinBodyToJson(JoinBody instance) => <String, dynamic>{
-      'username': instance.username,
-      'password': instance.password,
-      'phone': instance.phone,
-      'nickname': instance.nickname,
-      'role': _$UserRoleEnumMap[instance.role]!,
-      'birth': instance.birth.toIso8601String(),
-    };
+Map<String, dynamic> _$JoinBodyToJson(JoinBody instance) {
+  return <String, dynamic>{
+    'username': instance.username,
+    'password': instance.password,
+    'phone': instance.phone,
+    'nickname': instance.nickname,
+    'role': _$UserRoleEnumMap[instance.role]!,
+    'birth': instance.birth,
+    'gender': instance.gender,
+    'address': instance.address,
+  };
+}
 
 const _$UserRoleEnumMap = {
   UserRole.patient: 'PATIENT',

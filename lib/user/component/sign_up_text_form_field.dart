@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
-import 'package:remember_me_mobile/common/const/fonts.dart';
+import 'package:remember_me_mobile/common/const/text.dart';
 
 class SignUpTextFormField extends StatelessWidget {
   SignUpTextFormField({
@@ -11,6 +11,7 @@ class SignUpTextFormField extends StatelessWidget {
     this.constraints,
     this.obscureText = false,
     this.onChanged,
+    this.readOnly = false,
   });
 
   final TextEditingController ctrl;
@@ -18,6 +19,7 @@ class SignUpTextFormField extends StatelessWidget {
   final BoxConstraints? constraints;
   final bool obscureText;
   final ValueChanged<String>? onChanged;
+  final bool readOnly;
 
   final TextStyle baseStyle = TextStyle(
     fontSize: 10.0.sp,
@@ -34,10 +36,11 @@ class SignUpTextFormField extends StatelessWidget {
       style: baseStyle.copyWith(
         color: GREY900,
       ),
+      readOnly: readOnly,
       decoration: InputDecoration(
         border: UnderlineInputBorder(
           borderSide: BorderSide(
-            width: 0.5.r,
+            width: 0.5.w,
             color: const Color(
               0xFFA0A0A0,
             ),
