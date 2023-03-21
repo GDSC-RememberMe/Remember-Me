@@ -8,6 +8,7 @@ import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
 import 'package:remember_me_mobile/home/view/patient_home_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_page.dart';
 import 'package:remember_me_mobile/memory_check/view/patient_memory_check_page.dart';
+import 'package:remember_me_mobile/nostalgia_item/view/nostalgia_item_quiz_page.dart';
 
 class PatientMainTabPage extends ConsumerStatefulWidget {
   const PatientMainTabPage({super.key});
@@ -15,10 +16,12 @@ class PatientMainTabPage extends ConsumerStatefulWidget {
   static String get routeName => "patient_main_tab";
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _PatientMainTabPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PatientMainTabPageState();
 }
 
-class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage> with SingleTickerProviderStateMixin {
+class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage>
+    with SingleTickerProviderStateMixin {
   late TabController tabCtrl;
   int index = 1;
 
@@ -71,34 +74,38 @@ class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage> with Si
   Widget build(BuildContext context) {
     return RememberMeLayout(
       extendBody: true,
-      bottomNavigationBar: Container(
-        clipBehavior: Clip.hardEdge,
-        margin: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 21.0.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0.r),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF727272).withOpacity(0.20),
-              offset: const Offset(2, 3),
-              blurRadius: 10.0,
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 21.0.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0.r),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF727272).withOpacity(0.20),
+                offset: const Offset(2, 3),
+                blurRadius: 10.0,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20.0.r),
+            child: BottomNavigationBar(
+              selectedItemColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.72),
+              unselectedItemColor: const Color(0xFF999999),
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              type: BottomNavigationBarType.fixed,
+              selectedLabelStyle: baseLabelStyle,
+              unselectedLabelStyle: baseLabelStyle,
+              currentIndex: index,
+              items: tabs,
+              onTap: (index) async {
+                tabCtrl.animateTo(index);
+              },
+              backgroundColor: WHITE,
             ),
-          ],
-          color: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).colorScheme.primary.withOpacity(0.72),
-          unselectedItemColor: const Color(0xFF999999),
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: baseLabelStyle,
-          unselectedLabelStyle: baseLabelStyle,
-          currentIndex: index,
-          items: tabs,
-          onTap: (index) async {
-            tabCtrl.animateTo(index);
-          },
-          backgroundColor: WHITE,
+          ),
         ),
       ),
       body: RememberMeBox(
@@ -110,7 +117,7 @@ class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage> with Si
             PatientHomePage(
               tabCtrl: tabCtrl,
             ),
-            const PatientMemoryCheckPage(),
+            const NostalgiaItemQuizPage(),
           ],
         ),
       ),
