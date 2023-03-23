@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBeAFR7IEzcGRg7GKaHU_2EEDToNOxE4Os',
-    appId: '1:149391822612:web:3763b9d94b87cda677bc01',
-    messagingSenderId: '149391822612',
-    projectId: 'fcm-test-333c6',
-    authDomain: 'fcm-test-333c6.firebaseapp.com',
-    storageBucket: 'fcm-test-333c6.appspot.com',
-    measurementId: 'G-C3GZ7FWF7D',
+    apiKey: 'AIzaSyANjnYTbkMjltty6j8MestEQXH9tznObqY',
+    appId: '1:712137951046:web:819cafc870589527fd0747',
+    messagingSenderId: '712137951046',
+    projectId: 'rememberme-1edf1',
+    authDomain: 'rememberme-1edf1.firebaseapp.com',
+    storageBucket: 'rememberme-1edf1.appspot.com',
+    measurementId: 'G-S3FPNC2MLB',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBRqPHL5FqyKhMwk-P4Vl32aptTHA3z3E0',
-    appId: '1:149391822612:android:c80312d7e47dfe4677bc01',
-    messagingSenderId: '149391822612',
-    projectId: 'fcm-test-333c6',
-    storageBucket: 'fcm-test-333c6.appspot.com',
+    apiKey: 'AIzaSyDlE0oNukQ90phy6m8Yz2Hc6FVLiilJAOs',
+    appId: '1:712137951046:android:3da1fe9ca2beaaacfd0747',
+    messagingSenderId: '712137951046',
+    projectId: 'rememberme-1edf1',
+    storageBucket: 'rememberme-1edf1.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD0ekqGix3Glk-MuJkiX2rB0foMNcLkr2I',
-    appId: '1:149391822612:ios:f7f481fcaa46acd977bc01',
-    messagingSenderId: '149391822612',
-    projectId: 'fcm-test-333c6',
-    storageBucket: 'fcm-test-333c6.appspot.com',
-    iosClientId: '149391822612-hniqdrklrubmld4alkhslfal1idd7adt.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA1CO3lL5QUW5WLw_fKJBPgowJ67ec9-Ok',
+    appId: '1:712137951046:ios:2d513b20cd24394afd0747',
+    messagingSenderId: '712137951046',
+    projectId: 'rememberme-1edf1',
+    storageBucket: 'rememberme-1edf1.appspot.com',
+    iosClientId: '712137951046-oa9c60b1lu06sql3jgijphmvfpvjaba3.apps.googleusercontent.com',
     iosBundleId: 'com.example.rememberMeMobile',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD0ekqGix3Glk-MuJkiX2rB0foMNcLkr2I',
-    appId: '1:149391822612:ios:f7f481fcaa46acd977bc01',
-    messagingSenderId: '149391822612',
-    projectId: 'fcm-test-333c6',
-    storageBucket: 'fcm-test-333c6.appspot.com',
-    iosClientId: '149391822612-hniqdrklrubmld4alkhslfal1idd7adt.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA1CO3lL5QUW5WLw_fKJBPgowJ67ec9-Ok',
+    appId: '1:712137951046:ios:2d513b20cd24394afd0747',
+    messagingSenderId: '712137951046',
+    projectId: 'rememberme-1edf1',
+    storageBucket: 'rememberme-1edf1.appspot.com',
+    iosClientId: '712137951046-oa9c60b1lu06sql3jgijphmvfpvjaba3.apps.googleusercontent.com',
     iosBundleId: 'com.example.rememberMeMobile',
   );
 }
