@@ -34,6 +34,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
   int _currentIdx = 0;
 
+  int _progressIdx = 0;
+
   final List<Widget> _signUpPages = const [
     SignUpFirstPageView(),
     SignUpSecondPageView(),
@@ -121,7 +123,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _SignUpStep(currentIdx: _currentIdx + 1),
+                                _SignUpStep(currentProgressIdx: _progressIdx + 1),
                                 SizedBox(height: 34.5.h),
                                 _signUpPages[index],
                               ],
@@ -155,8 +157,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     if (_currentIdx < 5) {
       if (getStatusOfCurrentIdxEssentialField()) {
         setState(() {
+          _currentIdx.isOdd ? _progressIdx = _progressIdx + 1 : _progressIdx = _progressIdx;
+        });
+        setState(() {
           _currentIdx = _currentIdx + 1;
         });
+
         _pageCtrl.animateToPage(_currentIdx, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
       }
       return;
@@ -189,7 +195,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
             context.goNamed(CaregiverMainTabPage.routeName);
           });
         }
-        print(value);
       });
     } catch (e) {
       print(e.toString());
@@ -246,10 +251,10 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 class _SignUpStep extends StatelessWidget {
   const _SignUpStep({
     super.key,
-    required this.currentIdx,
+    required this.currentProgressIdx,
   });
 
-  final int currentIdx;
+  final int currentProgressIdx;
 
   @override
   Widget build(BuildContext context) {
@@ -268,9 +273,6 @@ class _SignUpStep extends StatelessWidget {
                   _progressCircle(context: context, progressIdx: 1),
                   _progressCircle(context: context, progressIdx: 2),
                   _progressCircle(context: context, progressIdx: 3),
-                  _progressCircle(context: context, progressIdx: 4),
-                  _progressCircle(context: context, progressIdx: 5),
-                  _progressCircle(context: context, progressIdx: 6),
                 ],
               ),
             ),
@@ -290,13 +292,13 @@ class _SignUpStep extends StatelessWidget {
         horizontal: 12.0.w,
       ),
       shape: BoxShape.circle,
-      color: progressIdx == currentIdx ? Theme.of(context).colorScheme.primary : Colors.transparent,
+      color: progressIdx == currentProgressIdx ? Theme.of(context).colorScheme.primary : Colors.transparent,
       child: RememberMeText(
         progressIdx.toString(),
         size: 16.sp,
         letterSpacing: -0.8.sp,
         weight: BOLD,
-        color: progressIdx == currentIdx ? WHITE : const Color(0xFF707070),
+        color: progressIdx == currentProgressIdx ? WHITE : const Color(0xFF707070),
       ),
     );
   }
@@ -342,51 +344,6 @@ class _SignUpStep extends StatelessWidget {
               ),
               child: RememberMeText(
                 "3",
-                size: 16.sp,
-                letterSpacing: -0.8.sp,
-                weight: BOLD,
-                color: Colors.transparent,
-              ),
-            ),
-            RememberMeBox(
-              padding: EdgeInsets.symmetric(
-                horizontal: 12.0.w,
-              ),
-              child: RememberMeText(
-                "3",
-                size: 16.sp,
-                letterSpacing: -0.8.sp,
-                weight: BOLD,
-                color: Colors.transparent,
-              ),
-            ),
-            RememberMeBox(
-              padding: EdgeInsets.symmetric(
-                horizontal: 12.0.w,
-              ),
-              child: RememberMeText(
-                "4",
-                size: 16.sp,
-                letterSpacing: -0.8.sp,
-                weight: BOLD,
-                color: Colors.transparent,
-              ),
-            ),
-            RememberMeBox(
-              padding: EdgeInsets.symmetric(
-                horizontal: 12.0.w,
-              ),
-              child: RememberMeText(
-                "5",
-                size: 16.sp,
-                letterSpacing: -0.8.sp,
-                weight: BOLD,
-                color: Colors.transparent,
-              ),
-            ),
-            RememberMeBox(
-              child: RememberMeText(
-                "6",
                 size: 16.sp,
                 letterSpacing: -0.8.sp,
                 weight: BOLD,
