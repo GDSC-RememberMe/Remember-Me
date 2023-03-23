@@ -16,8 +16,10 @@ class SplashPage extends StatelessWidget {
       body: SizedBox(
         width: 1.0.sw,
         child: Column(
-          children: const [
-            RememberMeLogo(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/purple_final.png", width: 0.5.sw),
+            const RememberMeLogo(
               color: WHITE,
             ),
           ],
