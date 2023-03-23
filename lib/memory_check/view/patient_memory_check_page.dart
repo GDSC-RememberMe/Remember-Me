@@ -30,7 +30,7 @@ class _PatientMemoryCheckPageState extends ConsumerState<PatientMemoryCheckPage>
     return RememberMeLayout(
       appBar: const RememberMeAppBar(
         title: "기억 확인",
-        isNeedBackButton: false,
+        isNeedBackButton: true,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(

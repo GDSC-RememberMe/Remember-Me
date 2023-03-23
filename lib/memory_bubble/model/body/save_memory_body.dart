@@ -6,9 +6,9 @@ part "save_memory_body.g.dart";
 class SaveMemoryBody {
   final String title;
   final String content;
-  final String tagWho;
+  final String? tagWho;
   final String tagWhere;
-  final String tagWhat;
+  final String? tagWhat;
 
   SaveMemoryBody({
     required this.title,

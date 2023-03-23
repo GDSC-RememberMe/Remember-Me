@@ -1,36 +1,75 @@
+import 'dart:io';
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:remember_me_mobile/memory_bubble/model/body/save_memory_body.dart';
 import 'package:remember_me_mobile/memory_bubble/model/body/update_memory_body.dart';
+import 'package:remember_me_mobile/memory_bubble/model/memory_model.dart';
+import 'package:remember_me_mobile/memory_bubble/repository/memory_data_repository.dart';
 import 'package:remember_me_mobile/memory_bubble/repository/memory_repository.dart';
 
-final memoryProvider = StateNotifierProvider<MemoryStateNotifier, void>((ref) {
+final memoryProvider = StateNotifierProvider<MemoryStateNotifier, List<MemoryModel>>((ref) {
   final memoryRepository = ref.watch(memoryRepositoryProvider);
+  final memoryDataRepository = ref.watch(memoryDataRepositoryProvider);
 
   return MemoryStateNotifier(
     repository: memoryRepository,
+    dataRepository: memoryDataRepository,
   );
 });
 
-class MemoryStateNotifier extends StateNotifier<void> {
+final memoryDetailProvider = Provider.family<MemoryModel?, int>((ref, id) {
+  final state = ref.watch(memoryProvider);
+
+  if (state.isEmpty) {
+    return null;
+  }
+
+  return state.firstWhereOrNull((element) => element.memoryId == id);
+});
+
+class MemoryStateNotifier extends StateNotifier<List<MemoryModel>> {
   final MemoryRepository repository;
+  final MemoryDataRepository dataRepository;
 
   MemoryStateNotifier({
     required this.repository,
-  }) : super(null) {}
+    required this.dataRepository,
+  }) : super([]) {
+    getMemories();
+  }
 
-  Future<void> saveMemory({
+  Future<void> getMemories() async {
+    final memories = await repository.getMemories();
+
+    state = memories;
+  }
+
+  Future<bool> saveMemory({
     required String title,
     required String content,
-    required String tagWho,
+    String? tagWho,
     required String tagWhere,
-    required String tagWhat,
+    String? tagWhat,
+    required XFile image,
+    File? audio,
   }) async {
     try {
       final SaveMemoryBody body =
           SaveMemoryBody(title: title, content: content, tagWho: tagWho, tagWhere: tagWhere, tagWhat: tagWhat);
 
-      await repository.saveMemory(body: body);
-    } catch (e) {}
+      await repository.saveMemory(body: body).then((memoryId) {
+        dataRepository.uploadImage(image: image, memoryId: memoryId);
+        if (audio != null) {
+          dataRepository.uploadAudio(audio: audio, memoryId: memoryId);
+        }
+      });
+
+      getMemories();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> updateMemory({
@@ -54,6 +93,24 @@ class MemoryStateNotifier extends StateNotifier<void> {
   }) async {
     try {
       await repository.deleteMemory(id: id.toString());
+    } catch (e) {}
+  }
+
+  Future<void> getMemory({
+    required int memoryId,
+  }) async {
+    try {
+      final resp = await repository.getMemory(id: memoryId.toString());
+
+      final pState = state;
+
+      state = pState.map((e) {
+        if (e.memoryId == memoryId) {
+          return resp;
+        } else {
+          return e;
+        }
+      }).toList();
     } catch (e) {}
   }
 }

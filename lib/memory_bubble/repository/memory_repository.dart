@@ -3,6 +3,7 @@ import 'package:remember_me_mobile/common/const/base_urls.dart';
 import 'package:remember_me_mobile/common/dio/dio.dart';
 import 'package:remember_me_mobile/memory_bubble/model/body/save_memory_body.dart';
 import 'package:remember_me_mobile/memory_bubble/model/body/update_memory_body.dart';
+import 'package:remember_me_mobile/memory_bubble/model/memory_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,7 +26,7 @@ abstract class MemoryRepository {
   @Headers({
     "accessToken": "true",
   })
-  Future<void> saveMemory({
+  Future<int> saveMemory({
     @Body() required SaveMemoryBody body,
   });
 
@@ -43,6 +44,20 @@ abstract class MemoryRepository {
     "accessToken": "true",
   })
   Future<void> deleteMemory({
+    @Path() required String id,
+  });
+
+  @GET("/all")
+  @Headers({
+    "accessToken": "true",
+  })
+  Future<List<MemoryModel>> getMemories();
+
+  @PATCH("/{id}")
+  @Headers({
+    "accessToken": "true",
+  })
+  Future<MemoryModel> getMemory({
     @Path() required String id,
   });
 }
