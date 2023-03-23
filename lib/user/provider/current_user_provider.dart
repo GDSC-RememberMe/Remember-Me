@@ -13,8 +13,7 @@ import 'package:remember_me_mobile/user/repository/auth_repository.dart';
 import 'package:remember_me_mobile/user/repository/user_repository.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-final currentUserNotifierProvider =
-    StateNotifierProvider<CurrentUserStateNotifier, UserModelBase?>((ref) {
+final currentUserNotifierProvider = StateNotifierProvider<CurrentUserStateNotifier, UserModelBase?>((ref) {
   final authorizationRepository = ref.watch(authRepositoryProvider);
   final currentUserNotifierRepository = ref.watch(userRepositoryProvider);
   final storage = ref.watch(secureStorageProvider);
@@ -48,11 +47,18 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
       return;
     }
 
-    final getInfoResp = await repository.getUserInfo();
+    print(accessToken);
 
-    final resp = getInfoResp;
+    FirebaseMessaging.instance.getToken().then((value) => print(value));
 
-    state = resp;
+    try {
+      final getInfoResp = await repository.getUserInfo();
+
+      final resp = getInfoResp;
+      state = resp;
+    } catch (e) {
+      state = UserModelError(message: "유저를 불러올 수 없습니다.");
+    }
   }
 
   Future<UserModelBase?> login({
@@ -62,8 +68,7 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
     try {
       state = UserModelLoading();
 
-      final resp =
-          await authRepository.login(username: username, password: password);
+      final resp = await authRepository.login(username: username, password: password);
 
       await storage.write(key: REFRESH_TOKEN_KEY, value: resp.refreshToken);
       await storage.write(key: ACCESS_TOKEN_KEY, value: resp.accessToken);
@@ -122,8 +127,7 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
           return userInfoResp;
         }
       });
-    } catch (e, stackTrace) {
-      print(e.toString());
+    } catch (e) {
       state = UserModelError(message: "회원 가입에 실패했습니다.");
 
       return Future.value(state);

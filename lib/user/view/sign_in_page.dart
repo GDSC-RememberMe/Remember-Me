@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,18 +56,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 ContainedButton(
                   "로그인",
                   onTap: () async {
-                    final data = await ref
-                        .read(currentUserNotifierProvider.notifier)
-                        .login(
+                    final data = await ref.read(currentUserNotifierProvider.notifier).login(
                           username: idCtrl.text,
                           password: passwordCtrl.text,
                         );
 
                     if (data is UserModel) {
-                      context.pushNamed(
-                          (data as UserModel).role == UserRole.caregiver
-                              ? CaregiverMainTabPage.routeName
-                              : PatientMainTabPage.routeName);
+                      context.goNamed((data as UserModel).role == UserRole.caregiver
+                          ? CaregiverMainTabPage.routeName
+                          : PatientMainTabPage.routeName);
                     }
                   },
                   buttonColor: Theme.of(context).colorScheme.primary,
