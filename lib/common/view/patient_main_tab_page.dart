@@ -5,6 +5,7 @@ import 'package:remember_me_mobile/common/component/remember_me_box.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
+import 'package:remember_me_mobile/common/view/memory_quiz_select_page.dart';
 import 'package:remember_me_mobile/home/view/patient_home_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_page.dart';
 import 'package:remember_me_mobile/memory_check/view/patient_memory_check_page.dart';
@@ -16,12 +17,10 @@ class PatientMainTabPage extends ConsumerStatefulWidget {
   static String get routeName => "patient_main_tab";
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PatientMainTabPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _PatientMainTabPageState();
 }
 
-class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage>
-    with SingleTickerProviderStateMixin {
+class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage> with SingleTickerProviderStateMixin {
   late TabController tabCtrl;
   int index = 1;
 
@@ -90,8 +89,7 @@ class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage>
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20.0.r),
             child: BottomNavigationBar(
-              selectedItemColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.72),
+              selectedItemColor: Theme.of(context).colorScheme.primary.withOpacity(0.72),
               unselectedItemColor: const Color(0xFF999999),
               showSelectedLabels: true,
               showUnselectedLabels: true,
@@ -117,7 +115,7 @@ class _PatientMainTabPageState extends ConsumerState<PatientMainTabPage>
             PatientHomePage(
               tabCtrl: tabCtrl,
             ),
-            const NostalgiaItemQuizPage(),
+            const MemoryQuizSelectPage(),
           ],
         ),
       ),
