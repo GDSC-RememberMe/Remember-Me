@@ -11,6 +11,8 @@ import 'package:remember_me_mobile/common/component/remember_me_box.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
+import 'package:remember_me_mobile/memory_bubble/model/memory_model.dart';
+import 'package:remember_me_mobile/memory_bubble/provider/memory_provider.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_detail_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_edit_form_page.dart';
 
@@ -42,66 +44,64 @@ class _MemoryBubblePageState extends ConsumerState<MemoryBubblePage> {
     letterSpacing: -0.34.sp,
   );
 
-  List<String> images = [
-    "https://blog.kakaocdn.net/dn/0ZR5w/btrESCSMaam/FPayu51S7ow7TklKnKwb1K/img.gif",
-    "https://thumbs.gfycat.com/UnawareReflectingIggypops-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/dYpxuW/btrH6Io40ah/Mp42ovGhVu8cfmKQFFsR90/img.gif",
-    "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
-    "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
-    "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
-    "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
-    "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
-    "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
-    "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
-    "https://blog.kakaocdn.net/dn/0ZR5w/btrESCSMaam/FPayu51S7ow7TklKnKwb1K/img.gif",
-    "https://thumbs.gfycat.com/UnawareReflectingIggypops-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/dYpxuW/btrH6Io40ah/Mp42ovGhVu8cfmKQFFsR90/img.gif",
-    "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
-    "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
-    "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
-    "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
-    "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
-    "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
-    "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
-    "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
-    "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
-    "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
-    "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
-    "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
-    "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
-    "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
-    "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
-    "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
-    "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
-    "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
-    "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
-    "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
-    "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
-    "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
-    "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
-    "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
-    "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
-    "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
-    "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
-    "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
-    "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
-    "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
-  ];
-
-  final _random = Random();
+  // List<String> images = [
+  //   "https://blog.kakaocdn.net/dn/0ZR5w/btrESCSMaam/FPayu51S7ow7TklKnKwb1K/img.gif",
+  //   "https://thumbs.gfycat.com/UnawareReflectingIggypops-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/dYpxuW/btrH6Io40ah/Mp42ovGhVu8cfmKQFFsR90/img.gif",
+  //   "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
+  //   "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
+  //   "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
+  //   "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
+  //   "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
+  //   "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
+  //   "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
+  //   "https://blog.kakaocdn.net/dn/0ZR5w/btrESCSMaam/FPayu51S7ow7TklKnKwb1K/img.gif",
+  //   "https://thumbs.gfycat.com/UnawareReflectingIggypops-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/dYpxuW/btrH6Io40ah/Mp42ovGhVu8cfmKQFFsR90/img.gif",
+  //   "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
+  //   "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
+  //   "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
+  //   "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
+  //   "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
+  //   "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
+  //   "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
+  //   "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
+  //   "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
+  //   "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
+  //   "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
+  //   "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
+  //   "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
+  //   "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
+  //   "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
+  //   "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
+  //   "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
+  //   "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
+  //   "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
+  //   "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
+  //   "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
+  //   "http://file3.instiz.net/data/file3/2022/07/24/a/0/2/a029191e2974bbeea81929b724b87d73.gif",
+  //   "https://mblogthumb-phinf.pstatic.net/MjAxOTEyMjRfMTIz/MDAxNTc3MTk3Mjk3Nzk3.-pS507AlXiJ_DEQPO3kLCZ4AtyWg3bmbh-UKqPrMfWYg.ksyTxfAg56o9eHZpoNEvHj7m7n9m4LFsiI7yzJzxfDEg.GIF.angela9009/IMG_7425.GIF?type=w800",
+  //   "http://file3.instiz.net/data/cached_img/upload/2019/10/04/1/61b0079f721093fb190453b1d270b2d1_mp4.gif",
+  //   "https://i.pinimg.com/originals/80/73/77/807377d55a168df51067d39a17ecd25b.gif",
+  //   "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+  //   "https://blog.kakaocdn.net/dn/Byi0Y/btrpzKscAFS/ovXbzy7IIo3x0chGl3L8z0/img.gif",
+  //   "https://blog.kakaocdn.net/dn/lNdve/btqIrur5nBj/N4R1Q2wcBkWzoP0VWbSsOk/img.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/06/30/14/668a748f78af2a8bdbc2e83f0b7dcb02_mp4.gif",
+  //   "http://file3.instiz.net/data/cached_img/upload/2020/04/30/22/2b1612a29db50cd1f762b8d796531846.gif",
+  //   "https://1.bp.blogspot.com/-12TTSNTOy3w/X4cndZpI24I/AAAAAAAAAHo/5RAGY3N_t3wcjPj794XzuIKJD02pNPRRACLcBGAsYHQ/s750/img%2B%252811%2529.gif",
+  // ];
 
   @override
   void initState() {
@@ -133,7 +133,7 @@ class _MemoryBubblePageState extends ConsumerState<MemoryBubblePage> {
               SizedBox(height: 30.0.h),
               _MemoryBubbles(
                 constraints: constraints,
-                images: images,
+                memories: ref.watch(memoryProvider),
                 isFromPatient: widget.isPatient,
               ),
             ],
@@ -218,12 +218,12 @@ class _MemoryBubblePageState extends ConsumerState<MemoryBubblePage> {
 class _MemoryBubbles extends StatelessWidget {
   const _MemoryBubbles({
     super.key,
-    required this.images,
+    required this.memories,
     required this.constraints,
     required this.isFromPatient,
   });
 
-  final List<String> images;
+  final List<MemoryModel> memories;
   final BoxConstraints constraints;
   final bool isFromPatient;
 
@@ -257,16 +257,16 @@ class _MemoryBubbles extends StatelessWidget {
         ),
         childrenDelegate: SliverChildBuilderDelegate(
           (context, index) {
-            return _bubble(images[index], context);
+            return _bubble(memories[index], context);
           },
-          childCount: images.length,
+          childCount: memories.length,
         ),
       ),
     );
   }
 
   Widget _bubble(
-    String imgUrl,
+    MemoryModel memory,
     BuildContext context,
   ) {
     return GestureDetector(
@@ -274,20 +274,24 @@ class _MemoryBubbles extends StatelessWidget {
         context.pushNamed(
           MemoryBubbleDetailPage.routeName,
           params: {
-            "imgUrl": imgUrl,
-            "isFromPatient": "${isFromPatient}",
+            "memoryId": "${memory.memoryId}",
+            // TODO id 바꾸기
+            "isFromPatient": "$isFromPatient",
           },
         );
       },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: CachedNetworkImageProvider(
-              imgUrl,
-            ),
-          ),
+          color: Theme.of(context).colorScheme.primary,
+          image: memory.imgUrl != null
+              ? DecorationImage(
+                  fit: BoxFit.cover,
+                  image: CachedNetworkImageProvider(
+                    memory.imgUrl as String,
+                  ),
+                )
+              : null,
         ),
       ),
     );

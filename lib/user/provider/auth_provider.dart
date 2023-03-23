@@ -6,6 +6,7 @@ import 'package:remember_me_mobile/common/view/splash_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_detail_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_edit_form_page.dart';
 import 'package:remember_me_mobile/memory_check/view/patient_memory_check_page.dart';
+import 'package:remember_me_mobile/nostalgia_item/view/nostalgia_item_quiz_page.dart';
 import 'package:remember_me_mobile/user/model/user_model.dart';
 import 'package:remember_me_mobile/user/provider/current_user_provider.dart';
 import 'package:go_router/go_router.dart';
@@ -56,10 +57,10 @@ class AuthProvider extends ChangeNotifier {
           builder: (_, __) => const CaregiverMainTabPage(),
         ),
         GoRoute(
-          path: "/memory_bubble_detail/:imgUrl/:isFromPatient",
+          path: "/memory_bubble_detail/:memoryId/:isFromPatient",
           name: MemoryBubbleDetailPage.routeName,
           builder: (context, state) => MemoryBubbleDetailPage(
-            imgUrl: "${state.params["imgUrl"]}",
+            memoryId: int.parse("${state.params["memoryId"]}"),
             isFromPatient: state.params["isFromPatient"] == "true",
           ),
         ),
@@ -72,6 +73,11 @@ class AuthProvider extends ChangeNotifier {
           path: "/memory_edit_form",
           name: MemoryEditFormPage.routeName,
           builder: (_, __) => const MemoryEditFormPage(),
+        ),
+        GoRoute(
+          path: "/nostalgia_item_quiz",
+          name: NostalgiaItemQuizPage.routeName,
+          builder: (_, __) => const NostalgiaItemQuizPage(),
         )
       ];
 
@@ -80,7 +86,27 @@ class AuthProvider extends ChangeNotifier {
   }
 
   String? redirectLogic(BuildContext context, GoRouterState state) {
-    // TODO redirectLogic
+    final UserModelBase? user = ref.read(currentUserNotifierProvider);
+
+    final loggingIn = state.location == "/signin" || state.location == "/signup";
+
+    if (user == null) {
+      return loggingIn ? null : "/signin";
+    }
+
+    if (user is UserModel) {
+      String? route = state.location == "/splash"
+          ? user.role == UserRole.caregiver
+              ? "/caregiver_main_tab"
+              : "/patient_main_tab"
+          : null;
+
+      return route;
+    }
+
+    if (user is UserModelError) {
+      return state.location == "/splash" ? "/signin" : null;
+    }
 
     return null;
   }

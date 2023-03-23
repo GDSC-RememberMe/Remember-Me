@@ -10,22 +10,26 @@ class RememberMeAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.isNeedBackButton = true,
+    this.onPressed,
   });
 
   final String title;
   final bool isNeedBackButton;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       titleSpacing: 0.0,
-      elevation: 0.0,
+      elevation: 2.0,
       backgroundColor: WHITE,
       leading: isNeedBackButton
           ? IconButton(
-              onPressed: () {
-                context.pop();
-              },
+              onPressed: onPressed ??
+                  () {
+                    context.pop();
+                  },
               icon: const Icon(Icons.arrow_back_ios),
               color: const Color(0xFF707070),
               hoverColor: Colors.transparent,

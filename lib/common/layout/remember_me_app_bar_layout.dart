@@ -14,6 +14,7 @@ class RememberMeAppBarLayout extends StatelessWidget {
   final bool? extendBodyBehindAppBar;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool isNeedBackButton;
+  final VoidCallback? onPressed;
 
   const RememberMeAppBarLayout({
     Key? key,
@@ -28,6 +29,7 @@ class RememberMeAppBarLayout extends StatelessWidget {
     this.extendBody,
     this.extendBodyBehindAppBar,
     this.isNeedBackButton = false,
+    this.onPressed,
   });
 
   @override
@@ -35,7 +37,11 @@ class RememberMeAppBarLayout extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       backgroundColor: backgroundColor ?? WHITE,
-      appBar: RememberMeAppBar(title: appBarTitle, isNeedBackButton: isNeedBackButton),
+      appBar: RememberMeAppBar(
+        title: appBarTitle,
+        isNeedBackButton: isNeedBackButton,
+        onPressed: onPressed,
+      ),
       body: body,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,

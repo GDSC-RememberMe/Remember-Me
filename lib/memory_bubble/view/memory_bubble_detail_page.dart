@@ -2,22 +2,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:remember_me_mobile/common/component/remember_me_app_bar.dart';
 import 'package:remember_me_mobile/common/component/remember_me_box.dart';
 import 'package:remember_me_mobile/common/component/remember_me_text.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
+import 'package:remember_me_mobile/common/layout/remember_me_app_bar_layout.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
+import 'package:remember_me_mobile/common/view/caregiver_main_tab_page.dart';
+import 'package:remember_me_mobile/common/view/patient_main_tab_page.dart';
+import 'package:remember_me_mobile/memory_bubble/provider/memory_provider.dart';
+import 'package:remember_me_mobile/user/model/user_model.dart';
+import 'package:remember_me_mobile/user/provider/current_user_provider.dart';
 
 class MemoryBubbleDetailPage extends ConsumerStatefulWidget {
   static String get routeName => "memory_bubble_detail";
 
-  final String imgUrl;
+  final int memoryId;
   final bool isFromPatient;
 
   const MemoryBubbleDetailPage({
     super.key,
-    required this.imgUrl,
+    required this.memoryId,
     required this.isFromPatient,
   });
 
@@ -29,23 +37,30 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
   @override
   void initState() {
     super.initState();
+    ref.read(memoryProvider.notifier).getMemory(memoryId: widget.memoryId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return RememberMeLayout(
-      appBar: const RememberMeAppBar(
-        title: "추억 회상",
-        isNeedBackButton: true,
-      ),
+    final memory = ref.watch(memoryDetailProvider(widget.memoryId));
+    return RememberMeAppBarLayout(
+      appBarTitle: "추억 회상",
+      isNeedBackButton: true,
+      onPressed: () {
+        final user = ref.read(currentUserNotifierProvider);
+        if (user is UserModel) {
+          context
+              .goNamed(user.role == UserRole.caregiver ? CaregiverMainTabPage.routeName : PatientMainTabPage.routeName);
+        }
+      },
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: ListView(
           children: [
             Stack(
               children: [
-                _memoryImg(),
-                _dateAndTitle(),
+                _memoryImg(memory?.imgUrl ?? ""),
+                _dateAndTitle(memory?.title ?? "", ""),
               ],
             ),
             RememberMeBox(
@@ -57,7 +72,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
                   _infoField(
                     imgPath: "location-pin.png",
                     title: "위치",
-                    info: "서울특별시 종로구 혜화동 349-14번지",
+                    info: memory?.tagWhere ?? "",
                   ),
                   const Divider(
                     thickness: 1.0,
@@ -65,8 +80,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
                   _infoField(
                     imgPath: "hearts.png",
                     title: "아버지와의 추억",
-                    info:
-                        "진통이 정말 심했어요. 새벽에 아버지한테 제가 전화해서 너무 아프다고 울었어요. 그래서 그날 가족들 다같이 병원 으로 와서 진통하는 걸 봤었지요. 그때 아버지가 계속 손 잡고 옆에 지켜주셨어요. 둘째 낳고 아버지가 보양식이며 배냇저고리며 이거저거 엄청 챙겨주셨던 거 기억나요. 낳자마자 아버지가 손수 이름 지어주겠다고 사흘밤낮동안 고민하셨던 것도 눈에 선해요.",
+                    info: memory?.content ?? "",
                   ),
                   const Divider(
                     thickness: 1.0,
@@ -155,12 +169,12 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
     );
   }
 
-  Widget _memoryImg() {
+  Widget _memoryImg(String imageUrl) {
     return RememberMeBox(
       width: 1.0.sw,
       height: 1.0.sw,
       child: CachedNetworkImage(
-        imageUrl: widget.imgUrl,
+        imageUrl: imageUrl,
         fit: BoxFit.cover,
         color: Colors.black26,
         colorBlendMode: BlendMode.darken,
@@ -168,7 +182,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
     );
   }
 
-  Widget _dateAndTitle() {
+  Widget _dateAndTitle(String title, String date) {
     return Positioned(
       bottom: 0.0,
       left: 0.0,
@@ -178,7 +192,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RememberMeText(
-              "2001. 10. 20",
+              date,
               size: 14.sp,
               weight: MEDIUM,
               color: WHITE,
@@ -187,7 +201,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
             Row(
               children: [
                 RememberMeText(
-                  "둘째손주 미애 탄생",
+                  title,
                   size: 36.sp,
                   weight: BOLD,
                   color: WHITE,
