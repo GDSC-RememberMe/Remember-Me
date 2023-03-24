@@ -16,6 +16,7 @@ import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_app_bar_layout.dart';
 import 'package:remember_me_mobile/memory_bubble/provider/memory_provider.dart';
+import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_detail_page.dart';
 
 class MemoryEditFormPage extends ConsumerStatefulWidget {
   const MemoryEditFormPage({super.key});
@@ -300,21 +301,27 @@ class _MemoryEditFormPageState extends ConsumerState<MemoryEditFormPage> {
                       _submitButton(
                         onTap: () async {
                           if (image != null && _searchCtrl.text.isNotEmpty && _descriptionCtrl.text.isNotEmpty) {
-                            final status = await ref.read(memoryProvider.notifier).saveMemory(
+                            final memoryId = await ref.read(memoryProvider.notifier).saveMemory(
                                   title: "",
                                   content: _descriptionCtrl.text,
                                   tagWhere: _searchCtrl.text,
                                   image: image as XFile,
                                   audio: _audioFile,
                                 );
-                            if (status) {
+                            if (memoryId != 0) {
                               setState(() {
                                 _visible = true;
                               });
                               Future.delayed(
-                                const Duration(milliseconds: 3500),
+                                const Duration(milliseconds: 5500),
                               ).then((_) {
-                                context.pop();
+                                context.pushNamed(
+                                  MemoryBubbleDetailPage.routeName,
+                                  params: {
+                                    "memoryId": "$memoryId",
+                                    "isFromPatient": "false",
+                                  },
+                                );
                               });
                             }
                           }

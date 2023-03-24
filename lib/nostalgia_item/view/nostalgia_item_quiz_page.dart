@@ -222,7 +222,7 @@ class _NostalgiaItemQuizPageState extends ConsumerState<NostalgiaItemQuizPage> {
       _selectedAnswers.add(answer);
     });
     Future.delayed(
-      const Duration(milliseconds: 300),
+      const Duration(milliseconds: 1000),
     ).then((_) {
       setState(() {
         _selectedAnswer = null;

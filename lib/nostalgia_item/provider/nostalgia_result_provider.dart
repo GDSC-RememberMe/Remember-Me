@@ -39,6 +39,7 @@ class NostalgiaResultStateNotifier extends StateNotifier<List<NostalgiaCalendarM
 
       state = resultList;
     } catch (e, stackTrace) {
+      print(e.toString());
       state = [];
     }
   }

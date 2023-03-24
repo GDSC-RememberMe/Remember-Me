@@ -45,7 +45,7 @@ class MemoryStateNotifier extends StateNotifier<List<MemoryModel>> {
     state = memories;
   }
 
-  Future<bool> saveMemory({
+  Future<int> saveMemory({
     required String title,
     required String content,
     String? tagWho,
@@ -58,17 +58,19 @@ class MemoryStateNotifier extends StateNotifier<List<MemoryModel>> {
       final SaveMemoryBody body =
           SaveMemoryBody(title: title, content: content, tagWho: tagWho, tagWhere: tagWhere, tagWhat: tagWhat);
 
+      int id = 0;
       await repository.saveMemory(body: body).then((memoryId) {
-        dataRepository.uploadImage(image: image, memoryId: memoryId);
-        if (audio != null) {
-          dataRepository.uploadAudio(audio: audio, memoryId: memoryId);
-        }
+        // dataRepository.uploadImage(image: image, memoryId: memoryId);
+        // if (audio != null) {
+        //   dataRepository.uploadAudio(audio: audio, memoryId: memoryId);
+        // }
+        id = memoryId;
       });
 
       getMemories();
-      return true;
+      return id;
     } catch (e) {
-      return false;
+      return 0;
     }
   }
 

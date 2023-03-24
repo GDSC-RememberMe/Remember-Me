@@ -72,7 +72,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
                   _infoField(
                     imgPath: "location-pin.png",
                     title: "위치",
-                    info: memory?.tagWhere ?? "",
+                    info: memory?.tagWhere ?? "부산광역시 해운대구",
                   ),
                   const Divider(
                     thickness: 1.0,
@@ -173,12 +173,19 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
     return RememberMeBox(
       width: 1.0.sw,
       height: 1.0.sw,
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        color: Colors.black26,
-        colorBlendMode: BlendMode.darken,
-      ),
+      child: imageUrl.isEmpty
+          ? Image.asset(
+              "assets/images/purple_final.png",
+              fit: BoxFit.cover,
+              color: Colors.black26,
+              colorBlendMode: BlendMode.darken,
+            )
+          : CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              color: Colors.black26,
+              colorBlendMode: BlendMode.darken,
+            ),
     );
   }
 
@@ -201,7 +208,7 @@ class _MemoryBubbleDetailPageState extends ConsumerState<MemoryBubbleDetailPage>
             Row(
               children: [
                 RememberMeText(
-                  title,
+                  title.isEmpty ? "둘째손주 탄생" : title,
                   size: 36.sp,
                   weight: BOLD,
                   color: WHITE,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,6 +84,7 @@ class _PatientProfile extends StatelessWidget {
         _profileImg(),
         SizedBox(height: 20.h),
         RememberMeBox(
+          width: double.infinity,
           padding: EdgeInsets.symmetric(
             vertical: 20.h,
             horizontal: 30.w,
@@ -95,7 +97,7 @@ class _PatientProfile extends StatelessWidget {
               SizedBox(height: 4.0.h),
               _ageAndStep(),
               SizedBox(height: 13.0.h),
-              _progressIndicator(),
+              // _progressIndicator(),
             ],
           ),
         ),
@@ -104,19 +106,26 @@ class _PatientProfile extends StatelessWidget {
   }
 
   Widget _profileImg() {
-    return RememberMeBox(
+    return Container(
       width: 150.w,
       height: 150.w,
-      shape: BoxShape.circle,
-      color: const Color(0xFFE8E8E8),
-      child: const SizedBox.shrink(),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: const Color(0xFFE8E8E8),
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(
+            "https://images.unsplash.com/photo-1444069069008-83a57aac43ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2487&q=80",
+          ),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 
   Widget _name() {
     return RichText(
       text: TextSpan(
-        text: "이재현 ",
+        text: "박종원",
         style: TextStyle(
           fontWeight: BOLD,
           fontSize: 17.sp,
@@ -140,7 +149,7 @@ class _PatientProfile extends StatelessWidget {
 
   Widget _ageAndStep() {
     return RememberMeText(
-      "27세 | 3급",
+      "81세 | 3급",
       size: 12.sp,
       weight: BOLD,
       letterSpacing: -0.24.sp,

@@ -130,7 +130,7 @@ class _MemoryBubblePageState extends ConsumerState<MemoryBubblePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30.0.h),
+              SizedBox(height: 15.0.h),
               _MemoryBubbles(
                 constraints: constraints,
                 memories: ref.watch(memoryProvider),
