@@ -46,6 +46,33 @@ class _NostalgiaItemRepository implements NostalgiaItemRepository {
   }
 
   @override
+  Future<List<NostalgiaItemBookModel>> getNostalgiaItemBook() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<NostalgiaItemBookModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/all',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            NostalgiaItemBookModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<void> saveNostalgiaItemResult({required resultList}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

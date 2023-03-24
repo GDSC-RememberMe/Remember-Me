@@ -6,6 +6,7 @@ import 'package:remember_me_mobile/common/view/splash_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_detail_page.dart';
 import 'package:remember_me_mobile/memory_bubble/view/memory_edit_form_page.dart';
 import 'package:remember_me_mobile/memory_check/view/patient_memory_check_page.dart';
+import 'package:remember_me_mobile/nostalgia_item/view/nostalgia_item_book_page.dart';
 import 'package:remember_me_mobile/nostalgia_item/view/nostalgia_item_quiz_page.dart';
 import 'package:remember_me_mobile/user/model/user_model.dart';
 import 'package:remember_me_mobile/user/provider/current_user_provider.dart';
@@ -78,6 +79,11 @@ class AuthProvider extends ChangeNotifier {
           path: "/nostalgia_item_quiz",
           name: NostalgiaItemQuizPage.routeName,
           builder: (_, __) => const NostalgiaItemQuizPage(),
+        ),
+        GoRoute(
+          path: "/nostalgia_item_book",
+          name: NostalgiaItemBookPage.routeName,
+          builder: (_, __) => const NostalgiaItemBookPage(),
         )
       ];
 

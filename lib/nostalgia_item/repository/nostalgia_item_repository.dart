@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:remember_me_mobile/common/const/base_urls.dart';
 import 'package:remember_me_mobile/common/dio/dio.dart';
+import 'package:remember_me_mobile/nostalgia_item/model/nostalgia_item_book_model.dart';
 import 'package:remember_me_mobile/nostalgia_item/model/nostalgia_item_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,6 +26,12 @@ abstract class NostalgiaItemRepository {
     "accessToken": "true",
   })
   Future<List<NostalgiaItemModel>> getNostalgiaItems();
+
+  @GET("/all")
+  @Headers({
+    "accessToken": "true",
+  })
+  Future<List<NostalgiaItemBookModel>> getNostalgiaItemBook();
 
   @POST("/result")
   @Headers({

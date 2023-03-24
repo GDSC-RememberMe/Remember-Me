@@ -15,6 +15,7 @@ import 'package:remember_me_mobile/common/layout/remember_me_app_bar_layout.dart
 import 'package:remember_me_mobile/nostalgia_item/model/nostalgia_calendar_model.dart';
 import 'package:remember_me_mobile/nostalgia_item/model/nostalgia_result_model.dart';
 import 'package:remember_me_mobile/nostalgia_item/provider/nostalgia_result_provider.dart';
+import 'package:remember_me_mobile/nostalgia_item/view/nostalgia_item_book_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CaregiverMemoryCheckPage extends ConsumerStatefulWidget {
@@ -47,13 +48,15 @@ class _CaregiverMemoryCheckPageState extends ConsumerState<CaregiverMemoryCheckP
 
     int count = 0;
 
-    for (NostalgiaResultModel rm in selectedDayNostalgiaCalendar!.nostalgiaResults) {
-      if (rm.result) {
-        count++;
+    if (selectedDayNostalgiaCalendar != null) {
+      for (NostalgiaResultModel rm in selectedDayNostalgiaCalendar!.nostalgiaResults) {
+        if (rm.result) {
+          count++;
+        }
       }
-    }
 
-    selectedDayNostalgiaResult = count;
+      selectedDayNostalgiaResult = count;
+    }
   }
 
   @override
@@ -114,8 +117,7 @@ class _CaregiverMemoryCheckPageState extends ConsumerState<CaregiverMemoryCheckP
           Center(
             child: GestureDetector(
               onTap: () {
-                // TODO 도감만들기
-                context.pushNamed("/caregiver/memory/check/1");
+                context.pushNamed(NostalgiaItemBookPage.routeName);
               },
               child: RememberMeBox(
                 borderColor: const Color(0xFFB87BE3),
@@ -185,7 +187,7 @@ class _CaregiverMemoryCheckPageState extends ConsumerState<CaregiverMemoryCheckP
                       CachedNetworkImage(
                         imageUrl: result.imgUrl,
                         width: 0.15.sw,
-                        color: !result.result ? WHITE.withOpacity(0.24) : null,
+                        color: !result.result ? WHITE.withOpacity(0.60) : null,
                         colorBlendMode: !result.result ? BlendMode.lighten : null,
                       ),
                       SizedBox(height: 10.0.h),
@@ -225,6 +227,8 @@ class _CaregiverMemoryCheckPageState extends ConsumerState<CaregiverMemoryCheckP
             selectedDayNostalgiaCalendar = null;
           });
           final result = ref.watch(nostalgiaResultProvider);
+
+          print(result.length);
           for (NostalgiaCalendarModel cm in result) {
             if (isSameDay(cm.when, fd)) {
               setState(() {
@@ -246,7 +250,6 @@ class _CaregiverMemoryCheckPageState extends ConsumerState<CaregiverMemoryCheckP
               selectedDayNostalgiaResult = count;
             });
           } else {
-            print(selectedDayNostalgiaCalendar);
             setState(() {
               selectedDayNostalgiaResult = 0;
             });
