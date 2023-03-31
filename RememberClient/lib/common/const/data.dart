@@ -1,4 +1,4 @@
 const ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
 const REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
-const APP_BASE_URL = "http://192.168.50.80:8080";
+const APP_BASE_URL = "http://127.0.0.1:8080";
