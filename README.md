@@ -50,3 +50,43 @@ java -jar {생성 파일명}
 ![Untitled (1)](https://user-images.githubusercontent.com/83996346/229000387-d5ca2150-2451-4d6a-9e15-3c3a662603e6.png)
 
 Til now, the RememberAI is only fitted in Korean. Soon, we will update the model to gather English Events even without Event Description!
+
+### 📱 Client RUN
+1. Flutter SDK SETTING
+  - Check [Flutter Installation](https://docs.flutter.dev/get-started/install).
+2. INSTALLATION
+```bash
+git clone https://github.com/GDSC-RememberMe/Remember-Me.git
+cd RememberClient
+```
+3. Before Application Run
+- If You want to run the client with Server, You should change ip address!
+- [Windows](https://support.microsoft.com/en-us/windows/find-your-ip-address-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_10)
+- Mac
+```bash 
+ifconfig | grep inet
+```
+  - use this command and you can find your ip like this!
+  - copy the highlighted line(not this photo)
+  ![ip](https://user-images.githubusercontent.com/63589031/229101145-e283cfde-4163-46ba-8d12-969aa0bae3e0.png)
+- Change the `RememberMeClient/lib/common/const/data.dart` line 4 like this.
+- Don't forget the `${enterYourIP}` should be changed to your IP!
+```
+const APP_BASE_URL = "http://${enterYourIP}:8080";
+```
+
+4. Running Application
+- You should open emulator from android studio and then run project!
+- Please be careful that you are in the RememberMeClient folder!
+```bash
+flutter run
+```
+5. When you see the LOGIN PAGE
+- You can login the account when the this project's server is running on your computer!
+  - Patient User ID&PASSWORD
+    - ID:
+    - PASSWORD:
+  - Caregiver User ID&PASSWORD
+    - ID:
+    - PASSWORD:
+<br>
