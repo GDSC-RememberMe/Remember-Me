@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rmdb?createDatabaseIfNotExist=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
     username: root
-    password: 401868
+    password: {INPUT MySQL LOCAL PASSWORD} // !HERE!
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
