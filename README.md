@@ -18,17 +18,34 @@ Memory recall and quiz application for dementia prevention
 ## 2. Service Architecture
 
 ## 3. How to RUN
-### ✅ Server RUN
-1. FCM Private key IMPORT
-  - ### 링크 ###
-2. MySQL DB SETTING
-3. Spring server RUN or BUILD
-```Markfile
-gradle bootRun // RUN
+### 💻 Server RUN
 
-gradlew build // BUILD
-java -jar {생성 파일명}
-```
+1. **MySQL Local DB SETTING**
+
+    > MySQL must be installed first : https://dev.mysql.com/downloads/installer
+
+    > INPUT MySQL LOCAL PASSWORD 
+    
+    - `application.yml`
+        ```makefile
+        spring:
+          server:
+            address: localhost
+            port: 8080
+          datasource:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            url: jdbc:mysql://localhost:3306/rmdb?createDatabaseIfNotExist=true&serverTimezone=Asia/Seoul
+            username: root
+            password: {INPUT MySQL LOCAL PASSWORD} // !HERE!
+        ```
+        
+2. **Spring server RUN**
+    > java 11 must be installed first : https://www.oracle.com/kr/java/technologies/downloads/#java11
+    ```makefile
+    git clone https://github.com/GDSC-RememberMe/Remember-Me.git
+    cd RememberServer
+    gradlew bootRun
+    ```
 
 <br>
 
