@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:remember_me_mobile/common/component/remember_me_text.dart';
 import 'package:remember_me_mobile/common/const/colors.dart';
 import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
@@ -8,6 +9,7 @@ import 'package:remember_me_mobile/home/view/caregiver_home_page.dart';
 
 import 'package:remember_me_mobile/memory_bubble/view/memory_bubble_page.dart';
 import 'package:remember_me_mobile/memory_check/view/caregiver_memory_check_page.dart';
+import 'package:remember_me_mobile/setting/view/setting_page.dart';
 
 class CaregiverMainTabPage extends ConsumerStatefulWidget {
   const CaregiverMainTabPage({super.key});
@@ -123,8 +125,15 @@ class _CaregiverMainTabPageState extends ConsumerState<CaregiverMainTabPage> wit
           CaregiverHomePage(
             tabCtrl: tabCtrl,
           ),
-          Container(),
-          Container(),
+          Center(
+            child: RememberMeText(
+              "COMING\nSOON",
+              align: TextAlign.center,
+              size: 36.0.sp,
+              weight: BOLD,
+            ),
+          ),
+          SettingPage(),
         ],
       ),
     );
