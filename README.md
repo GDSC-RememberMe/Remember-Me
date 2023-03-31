@@ -1,5 +1,8 @@
 # Remember-Me
-Memory recall and quiz application for dementia prevention
+
+<p align="center"><img src="https://user-images.githubusercontent.com/83996346/229106792-4f8ef8ce-8eeb-431c-a26c-cd52c7953173.png" width="300" height="300"></p>
+
+**<p align="center">🧓Memory recall and quiz application for dementia prevention👨‍🦳</p>**
   
 ## 1. Main Function
 ![page1](https://user-images.githubusercontent.com/83996346/229087035-143739c2-9c65-4aa0-a764-8865e1da0c8a.gif)
