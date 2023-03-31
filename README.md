@@ -111,9 +111,9 @@ flutter run
 5. When you see the LOGIN PAGE
 - You can login the account when the this project's server is running on your computer!
   - Patient User ID&PASSWORD
-    - ID:
-    - PASSWORD:
+    - ID: username1
+    - PASSWORD: aaabbb
   - Caregiver User ID&PASSWORD
-    - ID:
-    - PASSWORD:
+    - ID: username2
+    - PASSWORD: aaabbb
 <br>
