@@ -1,0 +1,44 @@
+spring:
+  server:
+    address: localhost
+    port: 8080
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rmdb?createDatabaseIfNotExist=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: root
+    password: 401868
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+jwt:
+  header: Authorization
+  secret-key: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  access-token-validity-in-ms: 1800
+  refresh-token-validity-in-ms: 604800
+gcp:
+  config:
+    file: gcp-account-file.json
+  project:
+    id: remember-me-377509
+  bucket:
+    id: remember-me
+  dir:
+    name: chap01
+fcm:
+  key:
+    path: fcm-test.json
+    scope: https://www.googleapis.com/auth/firebase.messaging
