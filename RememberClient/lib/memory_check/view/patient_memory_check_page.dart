@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,8 +41,8 @@ class _PatientMemoryCheckPageState extends ConsumerState<PatientMemoryCheckPage>
             borderRadius: BorderRadius.circular(18.0.r),
             child: AspectRatio(
               aspectRatio: 3 / 2,
-              child: CachedNetworkImage(
-                imageUrl: "https://thumbs.gfycat.com/CalmEvilBluegill-size_restricted.gif",
+              child: Image.asset(
+                "assets/images/children.png",
                 fit: BoxFit.cover,
               ),
             ),
@@ -78,14 +77,14 @@ class _PatientMemoryCheckPageState extends ConsumerState<PatientMemoryCheckPage>
                   SizedBox(height: 50.0.h),
                 ],
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.circle_outlined,
-                  color: const Color(0xFFCB0404),
-                  size: 0.5.sw,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Icon(
+              //     Icons.circle_outlined,
+              //     color: const Color(0xFFCB0404),
+              //     size: 0.5.sw,
+              //   ),
+              // ),
             ],
           ),
         ],
