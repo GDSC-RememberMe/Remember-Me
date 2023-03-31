@@ -17,6 +17,9 @@ Memory recall and quiz application for dementia prevention
 
 ## 2. Service Architecture
 
+![image](https://user-images.githubusercontent.com/77563814/229105532-780a0633-399e-4641-afb8-a9c6ff0e00bf.png)
+
+
 ## 3. How to RUN
 ### 💻 Server RUN
 
