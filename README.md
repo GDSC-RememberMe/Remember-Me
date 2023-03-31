@@ -30,7 +30,7 @@
 
     > MySQL must be installed first : https://dev.mysql.com/downloads/installer
 
-    > INPUT MySQL LOCAL PASSWORD 
+    > INPUT MySQL LOCAL USERNAME & PASSWORD
     
     - `application.yml`
         ```makefile
@@ -41,7 +41,7 @@
           datasource:
             driver-class-name: com.mysql.cj.jdbc.Driver
             url: jdbc:mysql://localhost:3306/rmdb?createDatabaseIfNotExist=true&serverTimezone=Asia/Seoul
-            username: root
+            username: {INPUT MySQL LOCAL USERNAME}
             password: {INPUT MySQL LOCAL PASSWORD} // !HERE!
         ```
         
