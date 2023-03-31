@@ -47,10 +47,6 @@ class CurrentUserStateNotifier extends StateNotifier<UserModelBase?> {
       return;
     }
 
-    print(accessToken);
-
-    FirebaseMessaging.instance.getToken().then((value) => print(value));
-
     try {
       final getInfoResp = await repository.getUserInfo();
 

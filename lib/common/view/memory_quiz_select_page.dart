@@ -46,14 +46,6 @@ class _MemoryQuizSelectPageState extends ConsumerState<MemoryQuizSelectPage> {
                     context.pushNamed(PatientMemoryCheckPage.routeName);
                   },
                 ),
-                // Container(
-                //   child: TextButton(
-                //     onPressed: () {
-                //       ref.read(currentUserNotifierProvider.notifier).logout();
-                //     },
-                //     child: Text("로그아웃"),
-                //   ),
-                // ),
               ],
             ),
           ),
