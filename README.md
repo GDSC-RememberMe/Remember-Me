@@ -3,7 +3,7 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/83996346/229106792-4f8ef8ce-8eeb-431c-a26c-cd52c7953173.png" width="300" height="300"></p>
 
 **<p align="center">🧓Memory recall and quiz application for dementia prevention👨‍🦳</p>**
-  
+**<p align="center">[YouTube](https://youtu.be/r7Z8ZWM2cck)</p>**
 ## 1. Main Function
 ![page1](https://user-images.githubusercontent.com/83996346/229087035-143739c2-9c65-4aa0-a764-8865e1da0c8a.gif)
 ![image](https://user-images.githubusercontent.com/83996346/228998788-a7300c69-3ea7-4195-9718-477fd4fedfc1.png)
@@ -17,7 +17,8 @@
 ![page10](https://user-images.githubusercontent.com/83996346/229088751-efdb64b2-999b-425f-a532-a14b7473c3f2.png)
 ![page11](https://user-images.githubusercontent.com/83996346/229088867-ba309993-98fe-4978-adc9-d7012b97e354.png)
 
-
+**<p align="center">👀If you See our full PPT, Click [Here](https://xd.adobe.com/view/c84ccaed-27ae-4c04-bf05-0fc0f2ebfcb3-9d1f/)👀</p>**
+  
 ## 2. Service Architecture
 
 ![image](https://user-images.githubusercontent.com/77563814/229105532-780a0633-399e-4641-afb8-a9c6ff0e00bf.png)
@@ -67,7 +68,7 @@
     ---requirements.txt
 ```
 
-1. `git clone 레포주소`
+1. `git clone https://github.com/GDSC-RememberMe/Remember-Me.git`
 2. `cd RememberAI`
 3. `pip install -r requirements.txt`
 4. ❗ Before you run each code, you have to install `Mecab` at your local. See [Here!](https://konlpy.org/ko/v0.4.0/install/)
