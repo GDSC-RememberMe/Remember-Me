@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:remember_me_mobile/common/component/remember_me_box.dart';
@@ -9,7 +11,7 @@ import 'package:remember_me_mobile/common/const/text.dart';
 import 'package:remember_me_mobile/common/layout/remember_me_layout.dart';
 import 'package:remember_me_mobile/home/component/home_page_main_button.dart';
 
-class CaregiverHomePage extends StatefulWidget {
+class CaregiverHomePage extends ConsumerStatefulWidget {
   final TabController tabCtrl;
 
   const CaregiverHomePage({
@@ -18,10 +20,10 @@ class CaregiverHomePage extends StatefulWidget {
   });
 
   @override
-  State<CaregiverHomePage> createState() => _CaregiverHomePageState();
+  ConsumerState<CaregiverHomePage> createState() => _CaregiverHomePageState();
 }
 
-class _CaregiverHomePageState extends State<CaregiverHomePage> {
+class _CaregiverHomePageState extends ConsumerState<CaregiverHomePage> {
   ScrollController scrollCtrl = ScrollController();
 
   @override
@@ -96,13 +98,13 @@ class _CaregiverHomePageState extends State<CaregiverHomePage> {
   }
 }
 
-class _PatientProfile extends StatelessWidget {
+class _PatientProfile extends ConsumerWidget {
   const _PatientProfile({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return RememberMeBox(
       padding: EdgeInsets.only(
         top: 22.h,
@@ -181,19 +183,25 @@ class _PatientProfile extends StatelessWidget {
   }
 
   Widget _profileImg() {
-    return RememberMeBox(
+    return Container(
       width: 80.w,
       height: 80.w,
-      shape: BoxShape.circle,
-      color: const Color(0xFFE8E8E8),
-      child: const SizedBox.shrink(),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(
+            "https://images.unsplash.com/photo-1444069069008-83a57aac43ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2487&q=80",
+          ),
+          fit: BoxFit.cover,
+        ),
+        shape: BoxShape.circle,
+      ),
     );
   }
 
   Widget _name() {
     return RichText(
       text: TextSpan(
-        text: "이재현 ",
+        text: "박종원 ",
         style: TextStyle(
           fontWeight: BOLD,
           fontSize: 17.sp,
@@ -217,7 +225,7 @@ class _PatientProfile extends StatelessWidget {
 
   Widget _ageAndStep() {
     return RememberMeText(
-      "27세 | 3급",
+      "81세 | 3급",
       size: 12.sp,
       weight: BOLD,
       letterSpacing: -0.24.sp,
@@ -298,7 +306,7 @@ class _MainButtons extends StatelessWidget {
           HomePageMainButton(
             title: "커뮤니티",
             subtitle: "치매 환우와 함께하는 사람들과\n다양한 정보를 공유하고 소통하는 공간입니다",
-            imgPath: "positive-mind.png",
+            imgPath: "internet.png",
             onTap: () {
               tabCtrl.animateTo(3);
             },
