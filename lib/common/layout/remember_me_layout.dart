@@ -9,6 +9,8 @@ class RememberMeLayout extends StatelessWidget {
   final Widget? floatingActionButton;
   final Widget? bottomSheet;
   final bool? resizeToAvoidBottomInset;
+  final bool? extendBody;
+  final bool? extendBodyBehindAppBar;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
 
   const RememberMeLayout({
@@ -21,6 +23,8 @@ class RememberMeLayout extends StatelessWidget {
     this.resizeToAvoidBottomInset,
     this.bottomSheet,
     this.floatingActionButtonLocation,
+    this.extendBody,
+    this.extendBodyBehindAppBar,
   }) : super(key: key);
 
   @override
@@ -34,6 +38,8 @@ class RememberMeLayout extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       bottomSheet: bottomSheet,
       floatingActionButtonLocation: floatingActionButtonLocation,
+      extendBody: extendBody ?? false,
+      extendBodyBehindAppBar: extendBodyBehindAppBar ?? false,
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' hide Headers;
 import 'package:remember_me_mobile/common/const/base_urls.dart';
 import 'package:remember_me_mobile/common/dio/dio.dart';
@@ -33,5 +35,15 @@ abstract class UserRepository {
   })
   Future<UserModel> updateUserProfile({
     @Body() required UpdateProfileBody body,
+  });
+
+  // TODO Image Update
+
+  @POST("/profile")
+  @Headers({
+    "accessToken": "true",
+  })
+  Future<void> updateImage({
+    @Part(name: "file") required File image,
   });
 }

@@ -5,3 +5,7 @@ const AUTH_BASE_URL = "$APP_BASE_URL/auth";
 const VALIDATION_BASE_URL = "$AUTH_BASE_URL/validation";
 
 const USER_BASE_URL = "$APP_BASE_URL/user";
+
+const MEMORY_BASE_URL = "$APP_BASE_URL/memory";
+
+const NOSTALGIAITEM_BASE_URL = "$APP_BASE_URL/nostalgiaItem";

@@ -12,7 +12,10 @@ JoinBody _$JoinBodyFromJson(Map<String, dynamic> json) => JoinBody(
       phone: json['phone'] as String,
       nickname: json['nickname'] as String,
       role: $enumDecode(_$UserRoleEnumMap, json['role']),
-      birth: DateTime.parse(json['birth'] as String),
+      birth: json['birth'] as String,
+      gender: json['gender'] as String,
+      address: json['address'] as String,
+      fcmToken: json['fcmToken'] as String,
     );
 
 Map<String, dynamic> _$JoinBodyToJson(JoinBody instance) => <String, dynamic>{
@@ -21,7 +24,10 @@ Map<String, dynamic> _$JoinBodyToJson(JoinBody instance) => <String, dynamic>{
       'phone': instance.phone,
       'nickname': instance.nickname,
       'role': _$UserRoleEnumMap[instance.role]!,
-      'birth': instance.birth.toIso8601String(),
+      'birth': instance.birth,
+      'gender': instance.gender,
+      'address': instance.address,
+      'fcmToken': instance.fcmToken,
     };
 
 const _$UserRoleEnumMap = {

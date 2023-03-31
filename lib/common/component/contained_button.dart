@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:remember_me_mobile/common/component/remember_me_box.dart';
 import 'package:remember_me_mobile/common/component/remember_me_text.dart';
-import 'package:remember_me_mobile/common/const/fonts.dart';
+import 'package:remember_me_mobile/common/const/text.dart';
 
 class ContainedButton extends StatefulWidget {
   final void Function() onTap;
@@ -28,7 +28,7 @@ class _ContainedButtonState extends State<ContainedButton> {
     return GestureDetector(
       onTap: widget.onTap,
       child: RememberMeBox(
-        padding: const EdgeInsets.symmetric(vertical: 11.0).r,
+        padding: EdgeInsets.symmetric(vertical: 11.0.h),
         width: double.infinity,
         color: widget.buttonColor,
         borderRadius: BorderRadius.circular(22.0.w),

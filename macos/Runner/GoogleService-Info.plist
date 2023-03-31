@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>407069600935-v5q2jonvbqh1veijhf64kfse2hdm7pb7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.407069600935-v5q2jonvbqh1veijhf64kfse2hdm7pb7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkP1oWIXOJ6sVhjW3C_IR4QwFlRra0kJM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>407069600935</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.rememberMeMobile</string>
+	<key>PROJECT_ID</key>
+	<string>remember-me-dfb50</string>
+	<key>STORAGE_BUCKET</key>
+	<string>remember-me-dfb50.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:407069600935:ios:a4efcdd033c8b94e3bff82</string>
+</dict>
+</plist>

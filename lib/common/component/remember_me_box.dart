@@ -11,6 +11,7 @@ class RememberMeBox extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxShape? shape;
+  final List<BoxShadow>? boxShadow;
 
   const RememberMeBox({
     required this.child,
@@ -24,6 +25,7 @@ class RememberMeBox extends StatelessWidget {
     this.width,
     this.height,
     this.shape,
+    this.boxShadow,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class RememberMeBox extends StatelessWidget {
         width: borderWidth,
       ),
       borderRadius: borderRadius,
+      boxShadow: boxShadow,
     );
     return SizedBox(
       child: Container(

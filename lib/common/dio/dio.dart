@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:remember_me_mobile/common/const/base_urls.dart';
 import 'package:remember_me_mobile/common/const/data.dart';
 import 'package:remember_me_mobile/common/secure_storage/secure_storage.dart';
+import 'package:remember_me_mobile/user/provider/auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio.g.dart';
@@ -61,6 +62,7 @@ class CustomInterceptor extends Interceptor {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
+    final token = await storage.read(key: ACCESS_TOKEN_KEY);
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
 
     if (refreshToken == null) {
@@ -75,11 +77,10 @@ class CustomInterceptor extends Interceptor {
       try {
         final resp = await dio.post(
           "$AUTH_BASE_URL/reissue",
-          options: Options(
-            headers: {
-              "Authorization": refreshToken,
-            },
-          ),
+          data: {
+            "accessToken": token,
+            "refreshToken": refreshToken,
+          },
         );
 
         final accessToken = resp.data["access_token"];
@@ -95,7 +96,7 @@ class CustomInterceptor extends Interceptor {
 
         return handler.resolve(response);
       } on DioError catch (e) {
-        // TODO 로그아웃
+        ref.read(authProvider.notifier).logout();
         return handler.reject(e);
       }
     }
