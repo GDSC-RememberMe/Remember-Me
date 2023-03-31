@@ -44,7 +44,7 @@ java -jar {생성 파일명}
 1. `git clone 레포주소`
 2. `cd RememberAI`
 3. `pip install -r requirements.txt`
-4. ❗ Before you run each code, you have to install `Mecab` at your local. See Here!(하면서 주소)
+4. ❗ Before you run each code, you have to install `Mecab` at your local. See [Here!](https://konlpy.org/ko/v0.4.0/install/)
 5. if you run `doc_cluster.py`, you can see the model’s clustering and extracting keyword like below!
 
 ![Untitled (1)](https://user-images.githubusercontent.com/83996346/229000387-d5ca2150-2451-4d6a-9e15-3c3a662603e6.png)
