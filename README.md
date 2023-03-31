@@ -48,7 +48,8 @@
 2. **Spring server RUN**
     > java 11 must be installed first : https://www.oracle.com/kr/java/technologies/downloads/#java11
 
-    > copy fcm-test.json in java/resources  => DOWNLOAD HERE https://drive.google.com/file/d/1SjirHTGudVwmoYwbpUxRw_mRBfeNWjzG/view?usp=sharing
+    > copy fcm-test.json in java/resources  
+    > => DOWNLOAD HERE https://drive.google.com/file/d/1SjirHTGudVwmoYwbpUxRw_mRBfeNWjzG/view?usp=sharing
     ```makefile
     git clone https://github.com/GDSC-RememberMe/Remember-Me.git
     cd RememberServer
